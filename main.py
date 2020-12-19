@@ -5,9 +5,12 @@ import speech_recognition as sr
 import threading 
 
 root = Tk()
-root.title("      Google")
+root.title("        Voice Search")
 e = Entry(root, width=39, borderwidth=7)
 e.grid(row=0, column=0, columnspan=3, padx=1, pady=1)
+
+mic_on = PhotoImage(file = "/home/zeke/Documents/GitHub/Virtual-Assistant/mic.png") 
+mic_off = PhotoImage(file = "/home/zeke/Documents/GitHub/Virtual-Assistant/mic_off.png") 
 
 def Listening():
     e = Entry(root, width=39, borderwidth=7)
@@ -22,6 +25,8 @@ def Loading():
 def button_go():
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        btn_go = Button(root, image = mic_on ,text = '.', padx= 150, pady=7, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d', compound = CENTER) 
+        btn_go.grid(row=1, columnspan=3)
         t1 = threading.Thread(target=Listening)
         t1.start() 
         r.adjust_for_ambient_noise(source)
@@ -38,7 +43,7 @@ def button_go():
                 e = Entry(root, width=39, borderwidth=7)
                 e.grid(row=0, column=0, columnspan=3, padx=1, pady=1)  
                 e.delete(0, END)
-                btn_go = Button(root, text="Voice Search",padx= 119, pady=15, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d')  
+                btn_go = Button(root, image = mic_off ,text = '.', padx= 150, pady=7, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d', compound = CENTER) 
                 btn_go.grid(row=1, columnspan=3)
 
         except:
@@ -46,11 +51,11 @@ def button_go():
             e.grid(row=0, column=0, columnspan=3, padx=1, pady=1)
             e.delete(0,END)
             e.insert(0, "Didn't get that, Try again")
-            btn_go = Button(root, text="Voice Search",padx= 119, pady=15, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d')  
+            btn_go = Button(root, image = mic_off ,text = '.', padx= 150, pady=7, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d', compound = CENTER) 
             btn_go.grid(row=1, columnspan=3)
         
 
-btn_go = Button(root, text="Voice Search",padx= 119, pady=15, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d') 
+btn_go = Button(root, image = mic_off ,text = '.', padx= 150, pady=7, command=threading.Thread(target=button_go).start, activebackground='#ff3333', bg='#5bc75d', compound = CENTER) 
 btn_go.grid(row=1, columnspan=3)
 root.resizable(False, False)
 root.mainloop()
